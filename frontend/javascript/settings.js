@@ -395,9 +395,7 @@ function updateStorageInfo() {
     let totalBytes = 0
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i)
-      if (key && key.startsWith("bst")) {
-        totalBytes += localStorage.getItem(key).length * 2
-      }
+      if (key) totalBytes += localStorage.getItem(key).length * 2
     }
     el.textContent = `Storage used: ${(totalBytes / 1024).toFixed(1)} KB`
   } catch {

@@ -9,34 +9,37 @@ layout: default
 
   <% if data.week %>
   <%
-    week = data.week.to_i
-    week_fmt = "%02d" % week
-    week_phases = site.data.week_phases.transform_keys(&:to_i)
-    max_week = week_phases.keys.max
-    phase_dir = week_phases[week]
-    week_base = "/#{phase_dir}/week-#{week_fmt}"
+    _study_slug  = data.study_slug
+    _data_key    = _study_slug&.gsub('-', '_')
+    _study_pfx   = _study_slug ? "/#{_study_slug}" : ""
+    week         = data.week.to_i
+    week_fmt     = "%02d" % week
+    week_phases  = (_data_key ? site.data.send(_data_key).week_phases : site.data.week_phases).transform_keys(&:to_i)
+    max_week     = week_phases.keys.max
+    phase_dir    = week_phases[week]
+    week_base    = "#{_study_pfx}/#{phase_dir}/week-#{week_fmt}"
     current_path = resource.relative_url.to_s.delete_prefix(site.base_path.to_s).chomp("/")
-    prev_week = week > 1 ? week - 1 : nil
-    next_week = week < max_week ? week + 1 : nil
-    prev_phase = prev_week ? week_phases[prev_week] : nil
-    next_phase = next_week ? week_phases[next_week] : nil
+    prev_week    = week > 1 ? week - 1 : nil
+    next_week    = week < max_week ? week + 1 : nil
+    prev_phase   = prev_week ? week_phases[prev_week] : nil
+    next_phase   = next_week ? week_phases[next_week] : nil
   %>
   <nav class="week-nav">
     <% if prev_week %>
-      <a href="<%= relative_url "/#{prev_phase}/week-#{'%02d' % prev_week}/overview/" %>" class="week-nav-arrow">&larr; Week <%= prev_week %></a>
+      <a href="<%= relative_url "#{_study_pfx}/#{prev_phase}/week-#{'%02d' % prev_week}/overview/" %>" class="week-nav-arrow">&larr; Week <%= prev_week %></a>
     <% else %>
       <span class="week-nav-arrow"></span>
     <% end %>
     <div class="week-nav-pages">
       <%
         pages = [
-          ["Overview", "#{week_base}/overview/"],
-          ["1", "#{week_base}/day-1/"],
-          ["2", "#{week_base}/day-2/"],
-          ["3", "#{week_base}/day-3/"],
-          ["4", "#{week_base}/day-4/"],
-          ["5", "#{week_base}/day-5/"],
-          ["Discussion", "#{week_base}/discussion/"],
+          ["Overview",    "#{week_base}/overview/"],
+          ["1",           "#{week_base}/day-1/"],
+          ["2",           "#{week_base}/day-2/"],
+          ["3",           "#{week_base}/day-3/"],
+          ["4",           "#{week_base}/day-4/"],
+          ["5",           "#{week_base}/day-5/"],
+          ["Discussion",  "#{week_base}/discussion/"],
         ]
       %>
       <% pages.each do |label, path| %>
@@ -45,7 +48,7 @@ layout: default
       <% end %>
     </div>
     <% if next_week %>
-      <a href="<%= relative_url "/#{next_phase}/week-#{'%02d' % next_week}/overview/" %>" class="week-nav-arrow">Week <%= next_week %> &rarr;</a>
+      <a href="<%= relative_url "#{_study_pfx}/#{next_phase}/week-#{'%02d' % next_week}/overview/" %>" class="week-nav-arrow">Week <%= next_week %> &rarr;</a>
     <% else %>
       <span class="week-nav-arrow"></span>
     <% end %>

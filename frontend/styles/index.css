@@ -923,9 +923,10 @@ tr:hover td {
 
 .day-complete-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  margin: 2rem 0;
+  gap: 0.5rem;
+  margin: 2rem 0 0;
   padding: 1.25rem;
   background: var(--bg-surface-alt);
   border: 1px solid var(--border-color);
@@ -1427,6 +1428,60 @@ button.toolbar-icon {
   color: #fff;
 }
 
+.nav-separator {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+  margin: 0.4rem 0;
+  padding: 0;
+}
+
+/* Accordion toggle button — styled like a nav link */
+.nav-accordion-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.6rem 1.25rem;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  text-align: left;
+}
+
+.nav-accordion-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.nav-accordion-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  margin-left: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.nav-accordion-toggle[aria-expanded="true"] .nav-accordion-icon {
+  transform: rotate(180deg);
+}
+
+/* Accordion panel hidden by default, shown when toggle is expanded */
+.nav-accordion-panel {
+  display: none;
+  padding-left: 0.75rem;
+  border-left: 2px solid rgba(255, 255, 255, 0.15);
+  margin: 0 0.75rem 0.25rem;
+}
+
+.nav-accordion-toggle[aria-expanded="true"] + .nav-accordion-panel {
+  display: block;
+}
+
 /* --- Utility --- */
 
 .page h1 {
@@ -1831,6 +1886,123 @@ button.toolbar-icon {
   font-size: 0.85rem;
   color: var(--text-muted);
   margin-bottom: 1.5rem;
+}
+
+/* --- Study Cards (Landing Page) --- */
+
+.studies {
+  margin: 2.5rem 0 1.5rem;
+}
+
+.studies h2 {
+  text-align: center;
+  border-bottom: 2px solid var(--purple-faint);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.study-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.study-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.study-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.study-card-image img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+}
+
+.study-card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 0;
+}
+
+.study-card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0;
+  padding: 1rem 1.25rem 0.6rem;
+  color: #fff;
+  background: var(--purple-deep);
+  border-bottom: 3px solid var(--gold);
+}
+
+.study-card-tagline {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--gold);
+  background: var(--purple-mid);
+  margin: 0;
+  padding: 0.4rem 1.25rem 0.5rem;
+}
+
+.study-card-description {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin: 0;
+  padding: 1rem 1.25rem;
+  flex: 1;
+  line-height: 1.6;
+}
+
+.study-card-progress {
+  padding: 0 1.25rem;
+  min-height: 0.25rem;
+}
+
+.study-card-action {
+  display: block;
+  text-align: center;
+  background: #1e1235;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 0.95rem;
+  text-decoration: none;
+  padding: 0.65rem 1rem;
+  margin: 0.75rem 1.25rem 1.25rem;
+  border-radius: var(--radius);
+  letter-spacing: 0.04em;
+  transition: background 0.2s;
+}
+
+.study-card-action:hover {
+  background: #0d0820;
+  color: #fff;
+}
+
+[data-theme="dark"] .study-card {
+  background: var(--bg-surface);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .study-card-title {
+  background: #1e1235;
+}
+
+[data-theme="dark"] .study-card-tagline {
+  background: #271845;
 }
 
 /* --- Print --- */
