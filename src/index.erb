@@ -1,0 +1,68 @@
+---
+layout: default
+title: Home
+---
+
+<section class="landing-hero">
+  <h1 class="landing-hero-title"><%= site.metadata.title %></h1>
+  <% if site.metadata.tagline %>
+    <p class="landing-hero-tagline"><%= site.metadata.tagline %></p>
+  <% end %>
+  <p class="landing-hero-description"><%= site.metadata.description %></p>
+</section>
+
+<section class="studies">
+  <h2>Available Studies</h2>
+  <div class="study-grid">
+    <% site.data.studies.each do |study| %>
+      <%
+        data_key   = study["slug"].gsub('-', '_')
+        study_cfg  = site.data.send(data_key).study_config
+      %>
+      <article class="study-card"
+               data-study-slug="<%= study["slug"] %>"
+               data-storage-prefix="<%= study_cfg["storage_prefix"] %>"
+               data-config="<%= study_cfg.to_json %>">
+
+        <% if study["image"] && !study["image"].empty? %>
+          <div class="study-card-image">
+            <img src="<%= relative_url "/images/#{study["image"]}" %>" alt="<%= study["title"] %>">
+          </div>
+        <% end %>
+
+        <div class="study-card-body">
+          <h3 class="study-card-title"><%= study["title"] %></h3>
+          <% if study["tagline"] %>
+            <p class="study-card-tagline"><%= study["tagline"] %></p>
+          <% end %>
+          <p class="study-card-description"><%= study["description"] %></p>
+
+          <%# JS hydrates progress bar and continue/start link %>
+          <div class="study-card-progress"></div>
+          <a href="<%= relative_url "/#{study["slug"]}/" %>"
+             class="study-card-action">
+            View Study
+          </a>
+        </div>
+      </article>
+    <% end %>
+  </div>
+</section>
+
+<section class="landing-resources">
+  <h2>Resources</h2>
+  <div class="guide-cards">
+    <a href="<%= relative_url '/documents/how-to-use/' %>" class="guide-card" target="_blank" rel="noopener">
+      <h3>How to Use This Study</h3>
+      <p>Daily routine, weekly rhythm, group and individual study tips.</p>
+    </a>
+    <a href="<%= relative_url '/documents/hear-method/' %>" class="guide-card" target="_blank" rel="noopener">
+      <h3>The H.E.A.R. Method</h3>
+      <p>A four-step journaling approach: Highlight, Explain, Apply, Respond.</p>
+    </a>
+    <a href="<%= relative_url '/documents/about/' %>" class="guide-card" target="_blank" rel="noopener">
+      <h3>About This Site</h3>
+      <p>Background, credits, and license information.</p>
+    </a>
+  </div>
+</section>
