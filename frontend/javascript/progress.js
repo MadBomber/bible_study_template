@@ -222,7 +222,10 @@ function addMarkCompleteButton(container, storageKey) {
   wrapper.appendChild(dateSpan)
 
   const hr = container.querySelector("hr")
-  if (hr) { hr.parentNode.insertBefore(wrapper, hr) } else { container.appendChild(wrapper) }
+  const weekNav = container.querySelector(".week-nav")
+  if (hr) { hr.parentNode.insertBefore(wrapper, hr) }
+  else if (weekNav) { weekNav.parentNode.insertBefore(wrapper, weekNav) }
+  else { container.appendChild(wrapper) }
 }
 
 function updateButton(btn, isComplete) {

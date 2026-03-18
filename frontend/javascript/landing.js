@@ -63,7 +63,7 @@ function totalItems(studyConfig) {
 // --- Hydrate study cards ---
 
 document.addEventListener("DOMContentLoaded", () => {
-  const basePath = document.body?.dataset?.basePath || ""
+  const basePath = (document.body?.dataset?.basePath || "").replace(/\/$/, "")
 
   document.querySelectorAll(".study-card[data-study-slug]").forEach(card => {
     const studySlug = card.dataset.studySlug

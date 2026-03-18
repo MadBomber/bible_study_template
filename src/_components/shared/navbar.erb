@@ -1,7 +1,6 @@
 <div class="site-top">
   <a href="<%= relative_url '/' %>" class="site-logo-link">
-    <%# Replace with your own logo image in src/images/site-logo.jpg %>
-    <span class="site-logo-text"><%= @metadata.title[0] %></span>
+    <img src="<%= relative_url '/images/site-logo.jpg' %>" alt="<%= @metadata.title %>" class="site-logo" />
   </a>
 
   <div class="site-top-right">
