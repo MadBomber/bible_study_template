@@ -20,6 +20,6 @@ total_weeks: 1
 sections:
   - number: 1
     title: "Sample Section"
-    slug: "section-1-sample-section"
+    slug: "sample"
     weeks_start: 1
     weeks_end: 1

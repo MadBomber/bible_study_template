@@ -18,6 +18,6 @@ Replace this content with an introduction to your first section. Explain what th
 
 | Week | Title | Reading |
 |------|-------|---------|
-| [1](/section-1-sample-section/week-01/overview/) | Sample Week 1 | Genesis 1 |
+| [1](/sample/week-01/overview/) | Sample Week 1 | Genesis 1 |
 
 Add a row for each week as you build out this section.
