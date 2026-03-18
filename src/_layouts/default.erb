@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="<%= site.locale %>">
+  <head>
+    <%= render "head", metadata: site.metadata, title: data.title %>
+  </head>
+  <body class="<%= data.layout %> <%= data.page_class %>" data-base-path="<%= site.base_path.to_s %>">
+    <%= render Shared::Navbar.new(metadata: site.metadata, resource: resource) %>
+
+    <main>
+      <%= yield %>
+    </main>
+
+    <%= render "footer", metadata: site.metadata %>
+
+    <%# Inject study config for JavaScript consumption %>
+    <script id="study-config-data" type="application/json"><%== site.data.study_config.to_json %></script>
+    <script id="study-titles-data" type="application/json"><%== site.data.study_titles.to_json %></script>
+  </body>
+</html>
