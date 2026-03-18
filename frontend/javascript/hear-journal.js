@@ -1,10 +1,28 @@
-const HEAR_STORAGE_KEY = "bst_hear"
+// --- Storage keys (derived from injected study config) ---
+
+function getStoragePrefix() {
+  try {
+    const el = document.getElementById("study-config-data")
+    if (!el) return "bst"
+    return JSON.parse(el.textContent).storage_prefix || "bst"
+  } catch { return "bst" }
+}
+
+function getHearKey() { return `${getStoragePrefix()}_hear` }
+
+function getStudySlug() {
+  try {
+    const el = document.getElementById("study-slug-data")
+    if (!el) return ""
+    return JSON.parse(el.textContent) || ""
+  } catch { return "" }
+}
 
 // --- Storage ---
 
 function getJournal() {
   try {
-    const data = localStorage.getItem(HEAR_STORAGE_KEY)
+    const data = localStorage.getItem(getHearKey())
     return data ? JSON.parse(data) : {}
   } catch {
     return {}
@@ -12,7 +30,7 @@ function getJournal() {
 }
 
 function saveJournal(journal) {
-  localStorage.setItem(HEAR_STORAGE_KEY, JSON.stringify(journal))
+  localStorage.setItem(getHearKey(), JSON.stringify(journal))
 }
 
 function entryKey(week, day) {
@@ -80,7 +98,9 @@ function weekPath(week) {
   if (!section) return "/"
   const wk = String(week).padStart(2, "0")
   const basePath = document.body?.dataset?.basePath || ""
-  return `${basePath}/${section.slug}/week-${wk}`
+  const studySlug = getStudySlug()
+  const studyPfx = studySlug ? `/${studySlug}` : ""
+  return `${basePath}${studyPfx}/${section.slug}/week-${wk}`
 }
 
 // --- Query params ---

@@ -1,7 +1,26 @@
-const GROUP_KEY = "bst_group"
+// --- Storage keys (derived from injected study config) ---
+
+function getStoragePrefix() {
+  try {
+    const el = document.getElementById("study-config-data")
+    if (!el) return "bst"
+    return JSON.parse(el.textContent).storage_prefix || "bst"
+  } catch { return "bst" }
+}
+
+function getGroupKey() { return `${getStoragePrefix()}_group` }
+function getHearKey()  { return `${getStoragePrefix()}_hear` }
+
+function getStudySlug() {
+  try {
+    const el = document.getElementById("study-slug-data")
+    if (!el) return ""
+    return JSON.parse(el.textContent) || ""
+  } catch { return "" }
+}
 
 function getGroupMembers() {
-  try { return JSON.parse(localStorage.getItem(GROUP_KEY) || "[]") } catch { return [] }
+  try { return JSON.parse(localStorage.getItem(getGroupKey()) || "[]") } catch { return [] }
 }
 
 function buildMailtoLink() {
@@ -41,7 +60,7 @@ function buildMailtoLink() {
   // Include H.E.A.R. Highlight if available for this day
   if (article && article.dataset.week && article.dataset.day) {
     try {
-      const journal = JSON.parse(localStorage.getItem("bst_hear") || "{}")
+      const journal = JSON.parse(localStorage.getItem(getHearKey()) || "{}")
       const key = `w${article.dataset.week}-d${article.dataset.day}`
       const entry = journal[key]
       if (entry && entry.h && entry.h.trim()) {
@@ -64,7 +83,11 @@ function handleShareClick(e) {
   if (members.length === 0) {
     e.preventDefault()
     const basePath = document.body?.dataset?.basePath || ""
-    window.location.href = `${basePath}/settings/#group-members`
+    const studySlug = getStudySlug()
+    const settingsPath = studySlug
+      ? `${basePath}/${studySlug}/group-settings/`
+      : `${basePath}/settings/#group-members`
+    window.location.href = settingsPath
     return
   }
 

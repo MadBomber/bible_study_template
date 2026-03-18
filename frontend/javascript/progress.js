@@ -1,10 +1,28 @@
-const STORAGE_KEY = "bst_progress"
+// --- Storage keys (derived from injected study config) ---
+
+function getStoragePrefix() {
+  try {
+    const el = document.getElementById("study-config-data")
+    if (!el) return "bst"
+    return JSON.parse(el.textContent).storage_prefix || "bst"
+  } catch { return "bst" }
+}
+
+function getProgressKey() { return `${getStoragePrefix()}_progress` }
+
+function getStudySlug() {
+  try {
+    const el = document.getElementById("study-slug-data")
+    if (!el) return ""
+    return JSON.parse(el.textContent) || ""
+  } catch { return "" }
+}
 
 // --- Storage ---
 
 function getProgress() {
   try {
-    const data = localStorage.getItem(STORAGE_KEY)
+    const data = localStorage.getItem(getProgressKey())
     return data ? JSON.parse(data) : {}
   } catch {
     return {}
@@ -12,7 +30,7 @@ function getProgress() {
 }
 
 function saveProgress(progress) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(progress))
+  localStorage.setItem(getProgressKey(), JSON.stringify(progress))
 }
 
 function getDate(key) { return getProgress()[key] || null }
@@ -106,18 +124,23 @@ function weekSectionSlug(week) {
   return section ? section.slug : ""
 }
 
+function studyPrefix() {
+  const slug = getStudySlug()
+  return slug ? `/${slug}` : ""
+}
+
 function weekPath(week) {
   const slug = weekSectionSlug(week)
   const wk = String(week).padStart(2, "0")
-  return `${BASE_PATH}/${slug}/week-${wk}`
+  return `${BASE_PATH}${studyPrefix()}/${slug}/week-${wk}`
 }
 
 function itemUrl(item) {
-  if (item.type === "section") return `${BASE_PATH}/${sectionSlug(item.section)}/`
+  if (item.type === "section") return `${BASE_PATH}${studyPrefix()}/${sectionSlug(item.section)}/`
   if (item.type === "overview") return `${weekPath(item.week)}/overview`
   if (item.type === "day") return `${weekPath(item.week)}/day-${item.day}`
   if (item.type === "discussion") return `${weekPath(item.week)}/discussion`
-  return `${BASE_PATH}/`
+  return `${BASE_PATH}${studyPrefix()}/`
 }
 
 // --- Next reading ---
@@ -288,10 +311,10 @@ function enhanceHomePage() {
       sNumTd.textContent = ""
 
       const sTitleTd = document.createElement("td")
-      sTitleTd.innerHTML = `<a href="${BASE_PATH}/${sectionSlug(sectionNum)}/">Section Overview</a>`
+      sTitleTd.innerHTML = `<a href="${BASE_PATH}${studyPrefix()}/${sectionSlug(sectionNum)}/">Section Overview</a>`
 
       const sLinkTd = document.createElement("td")
-      sLinkTd.innerHTML = `<a href="${BASE_PATH}/${sectionSlug(sectionNum)}/">Read</a>`
+      sLinkTd.innerHTML = `<a href="${BASE_PATH}${studyPrefix()}/${sectionSlug(sectionNum)}/">Read</a>`
 
       const sDateTd = document.createElement("td")
       sDateTd.classList.add("progress-date-cell")
