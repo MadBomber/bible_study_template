@@ -1427,6 +1427,60 @@ button.toolbar-icon {
   color: #fff;
 }
 
+.nav-separator {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+  margin: 0.4rem 0;
+  padding: 0;
+}
+
+/* Accordion toggle button — styled like a nav link */
+.nav-accordion-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.6rem 1.25rem;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  text-align: left;
+}
+
+.nav-accordion-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.nav-accordion-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  margin-left: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.nav-accordion-toggle[aria-expanded="true"] .nav-accordion-icon {
+  transform: rotate(180deg);
+}
+
+/* Accordion panel hidden by default, shown when toggle is expanded */
+.nav-accordion-panel {
+  display: none;
+  padding-left: 0.75rem;
+  border-left: 2px solid rgba(255, 255, 255, 0.15);
+  margin: 0 0.75rem 0.25rem;
+}
+
+.nav-accordion-toggle[aria-expanded="true"] + .nav-accordion-panel {
+  display: block;
+}
+
 /* --- Utility --- */
 
 .page h1 {

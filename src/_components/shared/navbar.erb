@@ -6,7 +6,11 @@
 
   <div class="site-top-right">
     <header class="site-header">
-      <a href="<%= relative_url '/' %>" class="site-brand"><%= @metadata.title %></a>
+      <% if study_slug && study_title %>
+        <a href="<%= relative_url "#{study_prefix}/" %>" class="site-brand site-brand-study"><%= study_title %></a>
+      <% else %>
+        <a href="<%= relative_url '/' %>" class="site-brand"><%= @metadata.title %></a>
+      <% end %>
     </header>
 
     <div class="page-toolbar">
@@ -20,12 +24,51 @@
         </button>
         <nav class="hamburger-menu" aria-label="Site navigation">
           <ul>
-            <li><a href="<%= relative_url '/how-to-use' %>">How to Use</a></li>
-            <li><a href="<%= relative_url '/hear-method' %>">H.E.A.R. Method</a></li>
-            <li><a href="<%= relative_url '/memory-verses' %>">Memory Verses</a></li>
-            <li><a href="<%= relative_url '/reading-plan' %>">Reading Plan</a></li>
+            <% unless on_landing_page? %>
+              <li><a href="<%= relative_url "#{study_prefix}/reading-plan/" %>">Reading Plan</a></li>
+              <li><a href="<%= relative_url "#{study_prefix}/memory-verses/" %>">Memory Verses</a></li>
+              <li data-feature="journal"><a href="<%= relative_url "#{study_prefix}/hear-journal/" %>">My Journal</a></li>
+              <li class="nav-separator" role="separator"></li>
+            <% end %>
+
+            <% docs = menu_documents %>
+            <% unless docs.empty? %>
+              <li class="nav-accordion">
+                <button class="nav-accordion-toggle" aria-expanded="false">
+                  Documents
+                  <svg class="nav-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <ul class="nav-accordion-panel">
+                  <% docs.each do |doc| %>
+                    <li><a href="<%= relative_url doc["url"] %>"><%= doc["title"] %></a></li>
+                  <% end %>
+                </ul>
+              </li>
+            <% end %>
+
+            <% unless studies.empty? %>
+              <li class="nav-accordion">
+                <button class="nav-accordion-toggle" aria-expanded="false">
+                  All Studies
+                  <svg class="nav-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <ul class="nav-accordion-panel">
+                  <% studies.each do |study| %>
+                    <li><a href="<%= relative_url "/#{study["slug"]}/" %>"><%= study["title"] %></a></li>
+                  <% end %>
+                </ul>
+              </li>
+            <% end %>
+
+            <li class="nav-separator" role="separator"></li>
             <li><a href="<%= relative_url '/settings/' %>">Settings</a></li>
-            <li data-feature="journal"><a href="<%= relative_url '/hear-journal/' %>">My Online Journal</a></li>
+            <% if study_slug %>
+              <li data-feature="group"><a href="<%= relative_url "#{study_prefix}/group-settings/" %>">Study Settings</a></li>
+            <% end %>
           </ul>
         </nav>
       </div>
@@ -40,7 +83,7 @@
         </a>
       <% end %>
       <% if @resource.data[:week] && @resource.data[:day] %>
-        <a href="<%= relative_url '/hear-journal/' %>?week=<%= @resource.data[:week] %>&day=<%= @resource.data[:day] %>&reading=<%= ERB::Util.url_encode(@resource.data[:reading].to_s) %>&title=<%= ERB::Util.url_encode(@resource.data[:title].to_s) %>" target="_blank" class="toolbar-icon" data-feature="journal" data-tooltip="H.E.A.R. Journal">
+        <a href="<%= relative_url "#{study_prefix}/hear-journal/" %>?week=<%= @resource.data[:week] %>&day=<%= @resource.data[:day] %>&reading=<%= ERB::Util.url_encode(@resource.data[:reading].to_s) %>&title=<%= ERB::Util.url_encode(@resource.data[:title].to_s) %>" target="_blank" class="toolbar-icon" data-feature="journal" data-tooltip="H.E.A.R. Journal">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
           </svg>
