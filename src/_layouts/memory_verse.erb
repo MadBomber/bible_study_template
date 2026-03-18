@@ -55,13 +55,14 @@ layout: default
       <!-- Mark Complete button inserted here by JS -->
     </div>
 
-    <a href="<%= relative_url '/memory-verses#all-verses' %>" class="mv-progress-link" target="_blank" rel="noopener">
-      Check Your Progress — All Memory Verses
-    </a>
-
     <%
-      week = data.week.to_i
-      week_phases = site.data.week_phases.transform_keys(&:to_i)
+      _study_slug  = data.study_slug
+      _data_key    = _study_slug&.gsub('-', '_')
+      _study_pfx   = _study_slug ? "/#{_study_slug}" : ""
+      week         = data.week.to_i
+      week_phases  = (_data_key ? site.data.send(_data_key).week_phases : site.data.week_phases).transform_keys(&:to_i)
+      study_cfg    = _data_key ? site.data.send(_data_key).study_config : site.data.study_config
+
       current_section_slug = week_phases[week]
 
       # All weeks in the current section
@@ -73,27 +74,32 @@ layout: default
       next_section_slug = last_week < week_phases.keys.max ? week_phases[last_week + 1] : nil
 
       # Section display names from study_config
-      section_names = site.data.study_config["sections"].each_with_object({}) do |s, h|
+      section_names = study_cfg["sections"].each_with_object({}) do |s, h|
         h[s["slug"]] = "Section #{s["number"]}"
       end
 
       prev_last_week  = prev_section_slug ? week_phases.select { |_w, dir| dir == prev_section_slug }.keys.max : nil
       next_first_week = next_section_slug ? week_phases.select { |_w, dir| dir == next_section_slug }.keys.min : nil
     %>
+
+    <a href="<%= relative_url "#{_study_pfx}/memory-verses#all-verses" %>" class="mv-progress-link" target="_blank" rel="noopener">
+      Check Your Progress — All Memory Verses
+    </a>
+
     <nav class="week-nav">
       <% if prev_section_slug %>
-        <a href="<%= relative_url "/#{prev_section_slug}/week-#{'%02d' % prev_last_week}/memory-verse/" %>" class="week-nav-arrow">&larr; <%= section_names[prev_section_slug] %></a>
+        <a href="<%= relative_url "#{_study_pfx}/#{prev_section_slug}/week-#{'%02d' % prev_last_week}/memory-verse/" %>" class="week-nav-arrow">&larr; <%= section_names[prev_section_slug] %></a>
       <% else %>
         <span class="week-nav-arrow"></span>
       <% end %>
       <div class="week-nav-pages">
         <% section_weeks.each do |w| %>
           <% is_current = w == week %>
-          <a href="<%= relative_url "/#{current_section_slug}/week-#{'%02d' % w}/memory-verse/" %>" class="week-nav-page<%= ' current' if is_current %>"><%= w %></a>
+          <a href="<%= relative_url "#{_study_pfx}/#{current_section_slug}/week-#{'%02d' % w}/memory-verse/" %>" class="week-nav-page<%= ' current' if is_current %>"><%= w %></a>
         <% end %>
       </div>
       <% if next_section_slug %>
-        <a href="<%= relative_url "/#{next_section_slug}/week-#{'%02d' % next_first_week}/memory-verse/" %>" class="week-nav-arrow"><%= section_names[next_section_slug] %> &rarr;</a>
+        <a href="<%= relative_url "#{_study_pfx}/#{next_section_slug}/week-#{'%02d' % next_first_week}/memory-verse/" %>" class="week-nav-arrow"><%= section_names[next_section_slug] %> &rarr;</a>
       <% else %>
         <span class="week-nav-arrow"></span>
       <% end %>
