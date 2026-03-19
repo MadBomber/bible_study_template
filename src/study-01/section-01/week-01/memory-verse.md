@@ -1,7 +1,7 @@
 ---
 week: 1
 title: "Week 1 Title"
-section: "Section 01: Section 01 Title"
+section: "Section 01: The Beginning"
 memory_verse: "Genesis 1:1"
 verse_text: "In the beginning God created the heavens and the earth."
 translation: "ESV"

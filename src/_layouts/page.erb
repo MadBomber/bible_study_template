@@ -9,11 +9,11 @@ layout: default
 
   <% if data.week %>
   <%
-    _study_slug  = data.study_slug
-    _data_key    = _study_slug&.gsub('-', '_')
-    _study_pfx   = _study_slug ? "/#{_study_slug}" : ""
-    week         = data.week.to_i
-    week_fmt     = "%02d" % week
+    _study_slug   = data.study_slug
+    _data_key     = _study_slug&.gsub('-', '_')
+    _study_pfx    = _study_slug ? "/#{_study_slug}" : ""
+    week          = data.week.to_i
+    week_fmt      = "%02d" % week
     week_phases  = (_data_key ? site.data.send(_data_key).week_phases : site.data.week_phases).transform_keys(&:to_i)
     max_week     = week_phases.keys.max
     phase_dir    = week_phases[week]

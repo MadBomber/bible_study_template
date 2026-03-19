@@ -4,7 +4,7 @@ day: 1
 title: "Day 1 Title"
 reading: "Genesis 1:1-5"
 parallel_passages: "John 1:1-3, Colossians 1:15-17"
-section: "Section 01: Section 01 Title"
+section: "Section 01: The Beginning"
 tags:
   - section-01
 layout: page
