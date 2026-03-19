@@ -10,6 +10,7 @@ connections:
   - "Galatians 3:6 — 'Abraham believed God, and it was counted to him as righteousness'"
   - "James 2:23 — 'Abraham believed God... and he was called a friend of God'"
 layout: memory_verse
+type: memory_verse
 study_slug: study-01
 ---
 

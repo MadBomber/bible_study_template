@@ -10,6 +10,7 @@ connections:
   - "John 20:22 — Jesus breathes on his disciples, echoing God breathing life into Adam"
   - "Psalm 104:29-30 — When God takes away breath, creatures die; when he sends his Spirit, they are created"
 layout: memory_verse
+type: memory_verse
 study_slug: study-01
 ---
 

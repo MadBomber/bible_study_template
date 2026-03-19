@@ -10,6 +10,7 @@ connections:
   - "Hebrews 11:22 — 'By faith Joseph, at the end of his life, made mention of the exodus of the Israelites'"
   - "Revelation 21:3 — 'Behold, the dwelling place of God is with man' — the ultimate fulfillment of the promise"
 layout: memory_verse
+type: memory_verse
 study_slug: study-01
 ---
 

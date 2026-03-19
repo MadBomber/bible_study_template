@@ -10,6 +10,7 @@ connections:
   - "Romans 8:32 — 'He who did not spare his own Son but gave him up for us all'"
   - "Revelation 5:6 — the Lamb who was slain, standing at the center of the throne"
 layout: memory_verse
+type: memory_verse
 study_slug: study-01
 ---
 

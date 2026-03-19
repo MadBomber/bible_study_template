@@ -961,86 +961,9 @@ tr:hover td {
   background: var(--gold-light);
 }
 
-/* --- Memory Verse Card --- */
+/* --- Memory Verse --- */
 
-.memory-verse-card {
-  max-width: var(--max-width);
-}
 
-.mv-header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.mv-phase {
-  font-family: var(--font-sans);
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
-}
-
-.mv-header h1 {
-  margin: 0.25rem 0 0.5rem;
-}
-
-.mv-week-title {
-  font-size: 1.15rem;
-  color: var(--text-secondary);
-  font-style: italic;
-  margin: 0;
-}
-
-.mv-verse-row {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  margin: 2rem 0;
-  padding: 1.5rem;
-  background: var(--bg-surface-alt);
-  border-radius: var(--radius);
-  border: 1px solid var(--border-color);
-}
-
-.mv-image {
-  flex: 0 0 auto;
-  max-width: 12rem;
-  margin: 0;
-}
-
-.mv-image img {
-  width: 100%;
-  height: auto;
-  border-radius: var(--radius);
-}
-
-.mv-verse {
-  flex: 1;
-}
-
-.mv-text {
-  font-size: 1.2rem;
-  line-height: 1.6;
-  margin: 0 0 1rem;
-  border-left-width: 4px;
-}
-
-.mv-reference {
-  font-family: var(--font-sans);
-  font-style: normal;
-  font-weight: 700;
-  font-size: 1rem;
-  color: var(--purple-deep);
-}
-
-.mv-translation {
-  font-family: var(--font-sans);
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin-left: 0.25rem;
-}
-
-.mv-context h2,
 .mv-connections h2 {
   font-size: 1.25rem;
 }
@@ -1082,67 +1005,6 @@ tr:hover td {
 
 .mv-listen-icon {
   flex-shrink: 0;
-}
-
-.mv-footer {
-  margin-top: 2.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--border-color);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.mv-footer-actions {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.mv-progress-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-family: var(--font-sans);
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--purple-mid);
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  transition: background 0.15s, border-color 0.15s;
-}
-
-.mv-progress-link:hover {
-  background: var(--purple-faint);
-  border-color: var(--purple-light);
-  color: var(--purple-deep);
-}
-
-.mv-progress-link svg {
-  flex-shrink: 0;
-}
-
-.mv-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
-.mv-nav-link {
-  font-family: var(--font-sans);
-  font-size: 0.9rem;
-  font-weight: 600;
-  text-decoration: none;
-  color: var(--purple-mid);
-  transition: color 0.15s;
-}
-
-.mv-nav-link:hover {
-  color: var(--purple-deep);
 }
 
 /* --- Page Prev/Next Navigation --- */
@@ -1381,23 +1243,6 @@ tr:hover td {
   }
 }
 
-@media (max-width: 600px) {
-  .mv-verse-row {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .mv-text {
-    border-left: none;
-    border-top: 4px solid var(--gold);
-    padding: 1rem 0.5rem 0;
-  }
-
-  .mv-nav {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-}
 
 /* --- Memory Verse Progress Bar --- */
 
@@ -1502,10 +1347,7 @@ button.toolbar-icon {
   transition: opacity 0.15s;
 }
 
-.toolbar-icon[data-tooltip]::after {
-  margin-top: 2rem;
-}
-
+.toolbar-icon[data-tooltip]::after,
 .dmv-icon-btn[data-tooltip]::after {
   margin-top: 2rem;
 }

@@ -10,6 +10,7 @@ connections:
   - "Matthew 1:23 — 'Immanuel, God with us'"
   - "Hebrews 13:5 — 'I will never leave you nor forsake you'"
 layout: memory_verse
+type: memory_verse
 study_slug: study-01
 ---
 

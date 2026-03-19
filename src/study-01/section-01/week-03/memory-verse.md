@@ -10,6 +10,7 @@ connections:
   - "Revelation 4:3 — a rainbow encircles the throne of God in the heavenly vision"
   - "Ezekiel 1:28 — the glory of God appears 'like the appearance of a rainbow'"
 layout: memory_verse
+type: memory_verse
 study_slug: study-01
 ---
 

@@ -7,47 +7,6 @@ function getStudyProgress(prefix) {
   } catch { return {} }
 }
 
-// --- Progress key helpers (must match progress.js) ---
-
-function sectionKey(s)      { return `s${s}` }
-function weekOverviewKey(w) { return `w${w}overview` }
-function dayKey(w, d)       { return `w${w}d${d}` }
-function discussionKey(w)   { return `w${w}discussion` }
-
-// --- Find next incomplete item in this study ---
-
-function findNextItem(progress, studyConfig, studySlug, basePath) {
-  const sections = studyConfig.sections || []
-
-  for (const section of sections) {
-    if (!progress[sectionKey(section.number)]) {
-      return {
-        url: `${basePath}/${studySlug}/${section.slug}/`,
-        label: `Section ${section.number} Overview`,
-      }
-    }
-
-    for (let w = section.weeks_start; w <= section.weeks_end; w++) {
-      const wk = String(w).padStart(2, "0")
-      const weekBase = `${basePath}/${studySlug}/${section.slug}/week-${wk}`
-
-      if (!progress[weekOverviewKey(w)]) {
-        return { url: `${weekBase}/overview/`, label: `Week ${w} Overview` }
-      }
-      for (let d = 1; d <= 5; d++) {
-        if (!progress[dayKey(w, d)]) {
-          return { url: `${weekBase}/day-${d}/`, label: `Week ${w}, Day ${d}` }
-        }
-      }
-      if (!progress[discussionKey(w)]) {
-        return { url: `${weekBase}/discussion/`, label: `Week ${w} Discussion` }
-      }
-    }
-  }
-
-  return null // study complete
-}
-
 // --- Count helpers ---
 
 function completedCount(progress) {

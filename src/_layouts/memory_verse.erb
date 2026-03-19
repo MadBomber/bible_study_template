@@ -2,6 +2,8 @@
 layout: page
 ---
 
+<%= render "memory_verse_callout", mv: resource, mv_url: nil, week: data.week, hide_book_link: true %>
+
 <%= yield %>
 
 <% if data.connections&.any? %>

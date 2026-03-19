@@ -10,6 +10,7 @@ connections:
   - "Genesis 50:20 — 'you meant it for evil, but God meant it for good'"
   - "Acts 2:23 — 'this Jesus, delivered up according to the definite plan and foreknowledge of God'"
 layout: memory_verse
+type: memory_verse
 study_slug: study-01
 ---
 

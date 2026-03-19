@@ -12,9 +12,10 @@
   _study_data   = _studies.find { |s| s["slug"] == _study_slug }
   _study_title  = _study_data&.[]("title") || _study_slug
 
-  _study_config = site.data.send(_data_key).study_config
-  _sections     = _study_config["sections"] || []
-  _week_phases  = site.data.send(_data_key).week_phases.transform_keys(&:to_i)
+  _study_config_data = site.data.respond_to?(_data_key) ? site.data.send(_data_key) : nil
+  _study_config      = _study_config_data&.study_config || {}
+  _sections          = _study_config["sections"] || []
+  _week_phases       = (_study_config_data&.week_phases || {}).transform_keys(&:to_i)
 
   _cur_section = if _week
     _sections.find { |s| _week >= s["weeks_start"].to_i && _week <= s["weeks_end"].to_i }
@@ -37,17 +38,20 @@
       "Day #{_day}"
     elsif _page_type == "discussion"
       "Discussion"
+    elsif _page_type == "memory_verse"
+      "Memory Verse"
     else
       "Overview"
     end
     _day_pages = [
-      ["Overview",    "#{_week_base}/overview/"],
-      ["Day 1",       "#{_week_base}/day-1/"],
-      ["Day 2",       "#{_week_base}/day-2/"],
-      ["Day 3",       "#{_week_base}/day-3/"],
-      ["Day 4",       "#{_week_base}/day-4/"],
-      ["Day 5",       "#{_week_base}/day-5/"],
-      ["Discussion",  "#{_week_base}/discussion/"],
+      ["Overview",      "#{_week_base}/overview/"],
+      ["Day 1",         "#{_week_base}/day-1/"],
+      ["Day 2",         "#{_week_base}/day-2/"],
+      ["Day 3",         "#{_week_base}/day-3/"],
+      ["Day 4",         "#{_week_base}/day-4/"],
+      ["Day 5",         "#{_week_base}/day-5/"],
+      ["Discussion",    "#{_week_base}/discussion/"],
+      ["Memory Verse",  "#{_week_base}/memory-verse/"],
     ]
   end
 %>
@@ -65,7 +69,14 @@
       </button>
       <ul class="bc-dropdown">
         <% _studies.each do |study| %>
-          <li><a href="<%= relative_url "/#{study["slug"]}/" %>"<%= ' aria-current="true"' if study["slug"] == _study_slug %>><%= study["title"] %></a></li>
+          <%
+            _study_aria = if study["slug"] == _study_slug
+              (!_cur_section && !_week) ? ' aria-current="page"' : ' aria-current="true"'
+            else
+              ""
+            end
+          %>
+          <li><a href="<%= relative_url "/#{study["slug"]}/" %>"<%== _study_aria %>><%= study["title"] %></a></li>
         <% end %>
       </ul>
     </li>
@@ -79,7 +90,14 @@
       </button>
       <ul class="bc-dropdown">
         <% _sections.each do |sec| %>
-          <li><a href="<%= relative_url "#{_study_pfx}/#{sec["slug"]}/" %>"<%= ' aria-current="true"' if sec["slug"] == _section_slug %>><%= sec["title"] %></a></li>
+          <%
+            _sec_aria = if sec["slug"] == _section_slug
+              !_week ? ' aria-current="page"' : ' aria-current="true"'
+            else
+              ""
+            end
+          %>
+          <li><a href="<%= relative_url "#{_study_pfx}/#{sec["slug"]}/" %>"<%== _sec_aria %>><%= sec["title"] %></a></li>
         <% end %>
       </ul>
     </li>

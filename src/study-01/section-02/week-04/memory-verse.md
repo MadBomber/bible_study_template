@@ -10,6 +10,7 @@ connections:
   - "Matthew 4:19 — Jesus calls his disciples with the same structure: 'Follow me'"
   - "John 14:3 — 'I will come again and take you to myself, that where I am you may be also'"
 layout: memory_verse
+type: memory_verse
 study_slug: study-01
 ---
 
