@@ -1478,16 +1478,17 @@ button.toolbar-icon {
   color: var(--gold);
 }
 
-.toolbar-icon[data-tooltip] {
+.toolbar-icon[data-tooltip],
+.dmv-icon-btn[data-tooltip] {
   position: relative;
 }
 
-.toolbar-icon[data-tooltip]::after {
+.toolbar-icon[data-tooltip]::after,
+.dmv-icon-btn[data-tooltip]::after {
   content: attr(data-tooltip);
   position: absolute;
   top: 100%;
   right: 0;
-  margin-top: 0.4rem;
   padding: 0.35rem 0.65rem;
   background: var(--text-primary);
   color: #fff;
@@ -1501,7 +1502,16 @@ button.toolbar-icon {
   transition: opacity 0.15s;
 }
 
-.toolbar-icon[data-tooltip]:hover::after {
+.toolbar-icon[data-tooltip]::after {
+  margin-top: 2rem;
+}
+
+.dmv-icon-btn[data-tooltip]::after {
+  margin-top: 2rem;
+}
+
+.toolbar-icon[data-tooltip]:hover::after,
+.dmv-icon-btn[data-tooltip]:hover::after {
   opacity: 1;
 }
 
@@ -2110,6 +2120,76 @@ button.toolbar-icon {
 
 [data-theme="dark"] .study-card-tagline {
   background: #271845;
+}
+
+/* --- Day Memory Verse Callout --- */
+
+.day-memory-verse {
+  background: var(--bg-surface-alt);
+  border-left: 4px solid var(--gold);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+}
+
+.dmv-label {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  margin: 0 0 0.5rem;
+}
+
+.dmv-text {
+  font-style: italic;
+  font-size: 1.05rem;
+  margin: 0 0 0.4rem;
+  padding: 0;
+  border: none;
+  color: var(--text-primary);
+}
+
+.dmv-ref-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dmv-ref {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.dmv-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--text-secondary);
+  border-radius: var(--radius);
+  transition: color 0.15s;
+  text-decoration: none;
+}
+
+.dmv-icon-btn svg {
+  display: block;
+}
+
+.dmv-icon-btn:hover {
+  color: var(--gold);
+}
+
+.dmv-icon-btn.speaking {
+  color: var(--gold);
 }
 
 /* --- Print --- */
