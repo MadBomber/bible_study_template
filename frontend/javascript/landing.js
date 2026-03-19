@@ -72,22 +72,14 @@ document.addEventListener("DOMContentLoaded", () => {
     let studyConfig = {}
     try { studyConfig = JSON.parse(card.dataset.config) } catch {}
 
-    const progress  = getStudyProgress(prefix)
-    const count     = completedCount(progress)
-    const total     = totalItems(studyConfig)
-    const actionEl  = card.querySelector(".study-card-action")
+    const progress = getStudyProgress(prefix)
+    const count    = completedCount(progress)
+    const total    = totalItems(studyConfig)
 
-    if (count === 0) {
-      // No progress — show "Start Study" linking to study overview
-      if (actionEl) {
-        actionEl.textContent = "Start Study"
-        actionEl.href = `${basePath}/${studySlug}/`
-      }
-      return
-    }
+    if (count === 0) return
 
-    // Has progress — render progress bar then compute continue link
-    const pct = total > 0 ? Math.round((count / total) * 100) : 0
+    // Has progress — render progress bar
+    const pct        = total > 0 ? Math.round((count / total) * 100) : 0
     const progressEl = card.querySelector(".study-card-progress")
     if (progressEl) {
       progressEl.innerHTML =
@@ -95,17 +87,6 @@ document.addEventListener("DOMContentLoaded", () => {
         `<div class="study-progress-track">` +
         `<div class="study-progress-fill" style="width:${pct}%"></div>` +
         `</div>`
-    }
-
-    const next = findNextItem(progress, studyConfig, studySlug, basePath)
-    if (actionEl) {
-      if (next) {
-        actionEl.textContent = `Continue — ${next.label}`
-        actionEl.href = next.url
-      } else {
-        actionEl.textContent = "Study Complete!"
-        actionEl.href = `${basePath}/${studySlug}/`
-      }
     }
   })
 })

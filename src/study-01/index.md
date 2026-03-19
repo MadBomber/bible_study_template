@@ -4,7 +4,7 @@ title: "Study 01 Title"
 study_slug: study-01
 ---
 
-## About This Study
+## Overview
 
 Replace this content with an introduction to your Bible study — its purpose, the themes it explores, who it is written for, and what the reader will gain from working through it.
 

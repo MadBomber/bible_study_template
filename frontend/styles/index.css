@@ -2035,6 +2035,9 @@ button.toolbar-icon {
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
   transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 }
 
 .study-card:hover {
@@ -2090,26 +2093,6 @@ button.toolbar-icon {
   min-height: 0.25rem;
 }
 
-.study-card-action {
-  display: block;
-  text-align: center;
-  background: #1e1235;
-  color: #fff;
-  font-family: var(--font-sans);
-  font-weight: 800;
-  font-size: 0.95rem;
-  text-decoration: none;
-  padding: 0.65rem 1rem;
-  margin: 0.75rem 1.25rem 1.25rem;
-  border-radius: var(--radius);
-  letter-spacing: 0.04em;
-  transition: background 0.2s;
-}
-
-.study-card-action:hover {
-  background: #0d0820;
-  color: #fff;
-}
 
 [data-theme="dark"] .study-card {
   background: var(--bg-surface);
