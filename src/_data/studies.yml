@@ -6,8 +6,10 @@
 # tagline     — short phrase shown on the card
 # image       — path to cover image (relative to src/images/), leave blank if none
 # description — one paragraph shown on the landing page card
+# hidden      — if true, the study is omitted from the landing page and "All Studies" menu
 
 - slug: "study-01"
+  hidden: true
   title: "Study 01 Title"
   tagline: "A short phrase describing study 01"
   image: ""
@@ -16,6 +18,7 @@
     src/_data/studies.yml.
 
 - slug: "study-02"
+  hidden: true
   title: "Study 02 Title"
   tagline: "A short phrase describing study 02"
   image: ""
