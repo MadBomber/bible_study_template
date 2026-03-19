@@ -65,7 +65,7 @@
       </button>
       <ul class="bc-dropdown">
         <% _studies.each do |study| %>
-          <li><a href="<%= relative_url "/#{study["slug"]}/" %>"<%= ' aria-current="page"' if study["slug"] == _study_slug && !_cur_section && !_week %>><%= study["title"] %></a></li>
+          <li><a href="<%= relative_url "/#{study["slug"]}/" %>"<%= ' aria-current="true"' if study["slug"] == _study_slug %>><%= study["title"] %></a></li>
         <% end %>
       </ul>
     </li>
@@ -79,7 +79,7 @@
       </button>
       <ul class="bc-dropdown">
         <% _sections.each do |sec| %>
-          <li><a href="<%= relative_url "#{_study_pfx}/#{sec["slug"]}/" %>"<%= ' aria-current="page"' if sec["slug"] == _section_slug && !_week %>><%= sec["title"] %></a></li>
+          <li><a href="<%= relative_url "#{_study_pfx}/#{sec["slug"]}/" %>"<%= ' aria-current="true"' if sec["slug"] == _section_slug %>><%= sec["title"] %></a></li>
         <% end %>
       </ul>
     </li>
