@@ -165,6 +165,24 @@
   color: var(--text-primary);
 }
 
+[data-theme="dark"] .font-size-stepper {
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .font-size-btn {
+  background: var(--bg-surface-alt);
+  color: var(--purple-light);
+}
+
+[data-theme="dark"] .font-size-btn:hover:not(:disabled) {
+  background: var(--purple-faint);
+}
+
+[data-theme="dark"] .font-size-input {
+  background: var(--bg-surface-alt);
+  border-color: var(--border-color);
+}
+
 [data-theme="dark"] .hear-field textarea {
   background: var(--bg-surface-alt);
   border-color: var(--border-color);
@@ -328,6 +346,24 @@
     color: var(--text-primary);
   }
 
+  [data-theme="auto"] .font-size-stepper {
+    border-color: var(--border-color);
+  }
+
+  [data-theme="auto"] .font-size-btn {
+    background: var(--bg-surface-alt);
+    color: var(--purple-light);
+  }
+
+  [data-theme="auto"] .font-size-btn:hover:not(:disabled) {
+    background: var(--purple-faint);
+  }
+
+  [data-theme="auto"] .font-size-input {
+    background: var(--bg-surface-alt);
+    border-color: var(--border-color);
+  }
+
   [data-theme="auto"] .hear-field textarea {
     background: var(--bg-surface-alt);
     border-color: var(--border-color);
@@ -431,6 +467,9 @@
 *, *::before, *::after {
   box-sizing: border-box;
 }
+
+/* Font size — set via JS as inline style on html element */
+:root { font-size: 18px; }
 
 body {
   background: var(--bg-body);
@@ -1804,6 +1843,69 @@ button.toolbar-icon {
   border-color: var(--purple-light);
   box-shadow: 0 0 0 3px rgba(124, 77, 255, 0.15);
 }
+
+/* --- Font Size Stepper --- */
+
+.font-size-stepper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: fit-content;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.font-size-btn {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: none;
+  background: var(--bg-surface);
+  color: var(--purple-mid);
+  cursor: pointer;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.font-size-btn:hover:not(:disabled) {
+  background: var(--purple-faint);
+  color: var(--purple-deep);
+}
+
+.font-size-btn:disabled {
+  color: var(--text-muted);
+  cursor: default;
+}
+
+.font-size-input {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  width: 3.5rem;
+  text-align: center;
+  color: var(--text-primary);
+  background: var(--bg-surface);
+  border: none;
+  border-left: 1px solid var(--border-color);
+  padding: 0 0.25rem;
+  height: 2.75rem;
+  -moz-appearance: textfield;
+}
+
+.font-size-input::-webkit-inner-spin-button,
+.font-size-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.font-size-input:focus {
+  outline: none;
+  background: var(--purple-faint);
+}
+
 
 /* --- Group Member Editor --- */
 
