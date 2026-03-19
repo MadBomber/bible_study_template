@@ -1244,6 +1244,38 @@ tr:hover td {
 }
 
 
+/* --- Memory Verses Table --- */
+
+.mv-verses-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.mv-verses-table th,
+.mv-verses-table td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
+}
+
+.mv-verses-table th {
+  text-align: left;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+}
+
+.mv-row-actions {
+  white-space: nowrap;
+}
+
+.mv-row-actions .dmv-icon-btn {
+  display: inline-flex;
+}
+
 /* --- Memory Verse Progress Bar --- */
 
 .mv-progress-bar-container {
