@@ -12,9 +12,9 @@ Replace this content with an introduction to your Bible study — its purpose, t
 
 | Section | Weeks | Theme |
 |---------|-------|-------|
-| [Section 01](section-01/) | 1 | Section 01 theme |
-
-Add a row for each section as you build out your study.
+| [The Beginning](section-01/) | 1–3 | Creation, the Fall, and God's faithfulness through Noah |
+| [The Covenant](section-02/) | 4–6 | God's covenant with Abraham, Isaac, and Jacob |
+| [The Promise](section-03/) | 7–9 | Joseph and the fulfillment of God's promises to his people |
 
 ### How to Use This Study
 

@@ -5,6 +5,7 @@ import "$styles/syntax-highlighting.css"
 import components from "$components/**/*.{js,jsx,js.rb,css}"
 
 import "./landing.js"
+import "./breadcrumb.js"
 import "./hamburger-menu.js"
 import "./progress.js"
 import "./memory-verse-audio.js"
