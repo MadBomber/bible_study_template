@@ -439,31 +439,9 @@ function enhanceDiscussionPage(weekNum) {
 // --- Memory verse card page ---
 
 function enhanceMemoryVerseCard(weekNum) {
-  const actions = document.querySelector(".mv-footer-actions")
-  if (!actions) return
-
-  const key = memoryVerseKey(weekNum)
-  const dateStr = getDate(key)
-  const btn = document.createElement("button")
-  btn.classList.add("day-complete-btn")
-  updateButton(btn, !!dateStr)
-
-  const dateSpan = createDateSpan(dateStr)
-
-  btn.addEventListener("click", () => {
-    if (getDate(key)) {
-      markIncomplete(key)
-      dateSpan.textContent = ""
-      updateButton(btn, false)
-    } else {
-      const date = markComplete(key)
-      dateSpan.textContent = formatDate(date)
-      updateButton(btn, true)
-    }
-  })
-
-  actions.appendChild(btn)
-  actions.appendChild(dateSpan)
+  const article = document.querySelector("article[data-week]")
+  if (!article) return
+  addMarkCompleteButton(article, memoryVerseKey(weekNum))
 }
 
 // --- Memory verses index page ---
@@ -567,12 +545,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return
   }
 
-  const mvCard = document.querySelector(".memory-verse-card")
-  if (mvCard && mvCard.dataset.week) {
-    enhanceMemoryVerseCard(parseInt(mvCard.dataset.week))
-    return
-  }
-
   if (!article) {
     if (document.querySelector("[data-page='home']")) {
       enhanceHomePage()
@@ -584,6 +556,8 @@ document.addEventListener("DOMContentLoaded", () => {
     enhanceSectionPage(parseInt(article.dataset.section))
   } else if (article.dataset.type === "discussion") {
     enhanceDiscussionPage(parseInt(article.dataset.week))
+  } else if (article.dataset.type === "memory_verse") {
+    enhanceMemoryVerseCard(parseInt(article.dataset.week))
   } else if (article.dataset.day) {
     enhanceDayPage(parseInt(article.dataset.week), parseInt(article.dataset.day))
   } else if (article.dataset.week) {

@@ -7,9 +7,10 @@
     <%= render Shared::Navbar.new(
       metadata:           site.metadata,
       resource:           resource,
-      studies:            site.data.studies,
+      studies:            site.data.studies || [],
       resolved_documents: site.data.resolved_documents
     ) %>
+    <%= render "breadcrumb" %>
 
     <main>
       <%= yield %>

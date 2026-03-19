@@ -17,6 +17,7 @@
     var s = JSON.parse(localStorage.getItem("bst_settings") || "{}");
     var theme = s.siteTheme || "light";
     document.documentElement.setAttribute("data-theme", theme);
+    document.documentElement.style.fontSize = (parseInt(s.fontSize, 10) || 18) + "px";
     var f = s.features || {};
     var css = "";
     if (f.journal === false) css += '[data-feature="journal"]{display:none!important}';

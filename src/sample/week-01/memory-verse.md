@@ -10,6 +10,7 @@ connections:
   - "Colossians 1:16 — all things were created through and for Christ"
   - "Revelation 21:1 — a new heaven and a new earth"
 layout: memory_verse
+type: memory_verse
 ---
 
 ## Why This Verse

@@ -3,17 +3,38 @@ layout: default
 ---
 
 <article<% if data.section_number %> data-section="<%= data.section_number %>"<% end %><% if data.week %> data-week="<%= data.week %>"<% end %><% if data.day %> data-day="<%= data.day %>"<% end %><% if data.type %> data-type="<%= data.type %>"<% end %>>
-  <h1><% if data.day %>Day <%= data.day %>: <%= data.title %><% elsif data.week && data.type == "discussion" %>Week <%= data.week %> Discussion Guide: <%= data.title %><% elsif data.week %>Week <%= data.week %>: <%= data.title %><% else %><%= data.title %><% end %></h1>
+  <h1><% if data.day %>Day <%= data.day %>: <%= data.title %><% elsif data.week && data.type == "discussion" %>Week <%= data.week %> Discussion Guide: <%= data.title %><% elsif data.week && data.type == "memory_verse" %>Week <%= data.week %>: Memory Verse<% elsif data.week %>Week <%= data.week %>: <%= data.title %><% else %><%= data.title %><% end %></h1>
+
+  <% _mv = nil %>
+  <% _mv_url = nil %>
+  <% if data.study_slug && data.week && data.type != "memory_verse" %>
+  <%
+    _mv = site.resources.find { |r|
+      r.data[:study_slug] == data.study_slug &&
+      r.data[:week].to_i  == data.week.to_i  &&
+      r.data[:type]       == "memory_verse"
+    }
+    _mv_slug  = data.study_slug
+    _mv_pfx   = _mv_slug ? "/#{_mv_slug}" : ""
+    _mv_phase = _mv ? site.data.send(_mv_slug.gsub('-','_')).week_phases.transform_keys(&:to_i)[data.week.to_i] : nil
+    _mv_url   = _mv && _mv_phase ? "#{_mv_pfx}/#{_mv_phase}/week-#{'%02d' % data.week.to_i}/memory-verse/" : nil
+  %>
+  <%= render "memory_verse_callout", mv: _mv, mv_url: _mv_url, week: data.week, hide_book_link: false %>
+  <% end %>
 
   <%= yield %>
 
+  <% if data.day && _mv %>
+  <%= render "memory_verse_callout", mv: _mv, mv_url: _mv_url, week: data.week, hide_book_link: false %>
+  <% end %>
+
   <% if data.week %>
   <%
-    _study_slug  = data.study_slug
-    _data_key    = _study_slug&.gsub('-', '_')
-    _study_pfx   = _study_slug ? "/#{_study_slug}" : ""
-    week         = data.week.to_i
-    week_fmt     = "%02d" % week
+    _study_slug   = data.study_slug
+    _data_key     = _study_slug&.gsub('-', '_')
+    _study_pfx    = _study_slug ? "/#{_study_slug}" : ""
+    week          = data.week.to_i
+    week_fmt      = "%02d" % week
     week_phases  = (_data_key ? site.data.send(_data_key).week_phases : site.data.week_phases).transform_keys(&:to_i)
     max_week     = week_phases.keys.max
     phase_dir    = week_phases[week]
@@ -40,6 +61,7 @@ layout: default
           ["4",           "#{week_base}/day-4/"],
           ["5",           "#{week_base}/day-5/"],
           ["Discussion",  "#{week_base}/discussion/"],
+          ["Verse",       "#{week_base}/memory-verse/"],
         ]
       %>
       <% pages.each do |label, path| %>

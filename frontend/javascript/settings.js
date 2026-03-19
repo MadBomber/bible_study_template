@@ -14,6 +14,7 @@ const DEFAULT_SETTINGS = {
   },
   discussionTheme: "light",
   siteTheme: "light",
+  fontSize: 18,
 }
 
 // --- Settings storage ---
@@ -25,6 +26,7 @@ function getSettings() {
       features: { ...DEFAULT_SETTINGS.features, ...(stored.features || {}) },
       discussionTheme: stored.discussionTheme || DEFAULT_SETTINGS.discussionTheme,
       siteTheme: stored.siteTheme || DEFAULT_SETTINGS.siteTheme,
+      fontSize: parseInt(stored.fontSize, 10) || DEFAULT_SETTINGS.fontSize,
     }
   } catch {
     return { ...DEFAULT_SETTINGS }
@@ -41,6 +43,13 @@ function saveSettings(settings) {
 function applySiteTheme() {
   const settings = getSettings()
   document.documentElement.setAttribute("data-theme", settings.siteTheme)
+}
+
+// --- Font size ---
+
+function applyFontSize() {
+  const settings = getSettings()
+  document.documentElement.style.fontSize = (settings.fontSize || 18) + "px"
 }
 
 // --- Feature visibility ---
@@ -500,6 +509,39 @@ function initSettingsPage() {
     })
   }
 
+  const decreaseBtn = document.getElementById("font-size-decrease")
+  const increaseBtn = document.getElementById("font-size-increase")
+  const fontSizeInput = document.getElementById("font-size-value")
+
+  function clampFontSize(value) {
+    return Math.min(40, Math.max(8, Math.round(value)))
+  }
+
+  function applyAndSaveFontSize(px) {
+    const s = getSettings()
+    s.fontSize = px
+    saveSettings(s)
+    applyFontSize()
+    fontSizeInput.value = px
+    showStatus(`Font size set to ${px}px.`)
+  }
+
+  if (decreaseBtn && increaseBtn && fontSizeInput) {
+    fontSizeInput.value = settings.fontSize || 18
+
+    decreaseBtn.addEventListener("click", () => {
+      applyAndSaveFontSize(clampFontSize((parseInt(fontSizeInput.value, 10) || 18) - 1))
+    })
+
+    increaseBtn.addEventListener("click", () => {
+      applyAndSaveFontSize(clampFontSize((parseInt(fontSizeInput.value, 10) || 18) + 1))
+    })
+
+    fontSizeInput.addEventListener("change", () => {
+      applyAndSaveFontSize(clampFontSize(parseInt(fontSizeInput.value, 10) || 18))
+    })
+  }
+
   updateJournalInfo()
   updateProgressInfo()
   updateGroupInfo()
@@ -510,6 +552,7 @@ function initSettingsPage() {
 
 document.addEventListener("DOMContentLoaded", () => {
   applySiteTheme()
+  applyFontSize()
   applyFeatureVisibility()
   initSettingsPage()
 })

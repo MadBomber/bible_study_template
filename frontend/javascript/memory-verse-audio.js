@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (synth.speaking) {
         synth.cancel()
         btn.classList.remove("speaking")
-        label.textContent = "Listen"
+        if (label) label.textContent = "Listen"
         return
       }
 
@@ -24,17 +24,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
       utterance.onstart = () => {
         btn.classList.add("speaking")
-        label.textContent = "Stop"
+        if (label) label.textContent = "Stop"
       }
 
       utterance.onend = () => {
         btn.classList.remove("speaking")
-        label.textContent = "Listen"
+        if (label) label.textContent = "Listen"
       }
 
       utterance.onerror = () => {
         btn.classList.remove("speaking")
-        label.textContent = "Listen"
+        if (label) label.textContent = "Listen"
       }
 
       synth.speak(utterance)

@@ -3,7 +3,7 @@ week: 1
 day: 5
 title: "Day 5 Title"
 reading: "Genesis 1:26-31"
-section: "Section 01: Section 01 Title"
+section: "Section 01: The Beginning"
 tags:
   - section-01
 layout: page

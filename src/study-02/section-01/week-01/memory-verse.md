@@ -10,6 +10,7 @@ connections:
   - "Colossians 1:16 — all things were created through and for Christ"
   - "Revelation 19:13 — 'his name is called The Word of God'"
 layout: memory_verse
+type: memory_verse
 study_slug: study-02
 ---
 

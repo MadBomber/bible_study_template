@@ -1,7 +1,7 @@
 ---
 week: 1
 title: "Week 1 Title"
-section: "Section 01: Section 01 Title"
+section: "Section 01: The Beginning"
 memory_verse: "Genesis 1:1"
 verse_text: "In the beginning God created the heavens and the earth."
 translation: "ESV"
@@ -10,6 +10,7 @@ connections:
   - "Colossians 1:16 — all things were created through and for Christ"
   - "Revelation 21:1 — a new heaven and a new earth"
 layout: memory_verse
+type: memory_verse
 study_slug: study-01
 ---
 

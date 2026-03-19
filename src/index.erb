@@ -24,10 +24,11 @@ title: Home
         data_key   = study["slug"].gsub('-', '_')
         study_cfg  = site.data.send(data_key).study_config
       %>
-      <article class="study-card"
-               data-study-slug="<%= study["slug"] %>"
-               data-storage-prefix="<%= study_cfg["storage_prefix"] %>"
-               data-config="<%= study_cfg.to_json %>">
+      <a class="study-card"
+         href="<%= relative_url "/#{study["slug"]}/" %>"
+         data-study-slug="<%= study["slug"] %>"
+         data-storage-prefix="<%= study_cfg["storage_prefix"] %>"
+         data-config="<%= study_cfg.to_json %>">
 
         <% if study["image"] && !study["image"].empty? %>
           <div class="study-card-image">
@@ -42,14 +43,10 @@ title: Home
           <% end %>
           <p class="study-card-description"><%= study["description"] %></p>
 
-          <%# JS hydrates progress bar and continue/start link %>
+          <%# JS hydrates progress bar %>
           <div class="study-card-progress"></div>
-          <a href="/<%=study["slug"]%>/"
-             class="study-card-action">
-            View Study
-          </a>
         </div>
-      </article>
+      </a>
     <% end %>
   </div>
 </section>

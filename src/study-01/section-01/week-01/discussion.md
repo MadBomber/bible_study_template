@@ -1,7 +1,7 @@
 ---
 week: 1
 title: "Week 1 Discussion"
-section: "Section 01: Section 01 Title"
+section: "Section 01: The Beginning"
 type: discussion
 tags:
   - discussion

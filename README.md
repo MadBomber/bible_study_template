@@ -130,121 +130,215 @@ Powers the H.E.A.R. Journal header and reading plan. Add one entry per week.
 
 ---
 
-## Adding Content
+## File Naming Conventions
 
-### Section directory
+All content lives under `src/`. The directory hierarchy mirrors the three-layer structure of the site.
 
-Create a directory under `src/` named with your section slug and add an `index.md`:
+### Directory names
 
+| Level | Pattern | Example |
+|-------|---------|---------|
+| Study root | `{study-slug}/` | `src/study-01/` |
+| Section | `{section-slug}/` | `src/study-01/section-01/` |
+| Week | `week-NN/` (zero-padded) | `src/study-01/section-01/week-01/` |
+
+Section slugs are arbitrary but must match `study_config.yml` and `week_phases.yml`. Use lowercase, hyphens only — no spaces or underscores.
+
+Week directories are always two digits (`week-01`, `week-09`, `week-12`).
+
+### File names within a week directory
+
+| File | Purpose | Fixed name? |
+|------|---------|-------------|
+| `overview.md` | Week introduction | yes |
+| `day-1.md` … `day-5.md` | Daily study pages | yes |
+| `discussion.md` | Group discussion guide | yes |
+| `memory-verse.md` | Weekly memory verse | yes |
+
+All file names within a week are fixed. Do not rename them — the week navigation bar and JavaScript progress tracking depend on them.
+
+### Study-level files
+
+| File | Purpose |
+|------|---------|
+| `{study-slug}/index.md` | Study landing/overview page |
+| `{study-slug}/memory-verses.erb` | Auto-generated memory verse table (do not edit) |
+| `{study-slug}/reading-plan.erb` | Printable reading plan |
+| `{study-slug}/hear-journal.erb` | H.E.A.R. journal app page |
+| `{study-slug}/group-settings.erb` | Per-study settings page |
+| `{study-slug}/{section-slug}/index.md` | Section overview page |
+
+---
+
+## Front Matter Reference
+
+Every page type uses a specific set of front matter fields. The fields listed as **required** must be present for the page to render and for progress tracking and navigation to work correctly. Optional fields add content but are safe to omit.
+
+### Study index — `src/{study-slug}/index.md`
+
+```yaml
+---
+layout: page
+title: "Study Title"
+study_slug: study-01        # must match the directory name
+---
 ```
-src/covenants/
-  index.md
-  week-01/
-    overview.md
-    day-1.md
-    day-2.md
-    day-3.md
-    day-4.md
-    day-5.md
-    discussion.md
-    memory-verse.md
-```
 
-### Section index — `src/<slug>/index.md`
+### Section index — `src/{study-slug}/{section-slug}/index.md`
 
 ```yaml
 ---
 layout: page
 title: "Section 1: The Covenants"
-section_number: 1
+section_number: 1           # integer; drives section progress tracking
+study_slug: study-01
 ---
 ```
 
-### Week overview — `src/<slug>/week-NN/overview.md`
+### Week overview — `src/{study-slug}/{section-slug}/week-NN/overview.md`
 
 ```yaml
 ---
-week: 1
+layout: page
 title: "The Covenant with Noah"
+week: 1                     # integer; must match the directory number
 section: "Section 1: The Covenants"
-date_range: "Days 1–5"
-chapters:
+study_slug: study-01
+date_range: "Days 1–5"      # optional; displayed in the page header
+chapters:                   # optional; list of scripture chapters covered
   - Genesis 6
   - Genesis 7
-tags:
-  - covenant
+tags:                       # optional
   - section-1
-layout: page
 ---
 ```
 
-### Daily page — `src/<slug>/week-NN/day-N.md`
+### Daily page — `src/{study-slug}/{section-slug}/week-NN/day-N.md`
 
 ```yaml
 ---
-week: 1
-day: 1
+layout: page
 title: "A World Gone Wrong"
-reading: "Genesis 6:1-22"
-parallel_passages: "Matthew 24:37-39"
+week: 1
+day: 1                      # integer 1–5; drives progress tracking
+reading: "Genesis 6:1-22"   # optional; displayed in the journal header
+parallel_passages: "Matthew 24:37-39"  # optional
 section: "Section 1: The Covenants"
-tags:
-  - noah
+study_slug: study-01
+tags:                       # optional
   - section-1
-layout: page
 ---
 ```
 
-Page body sections (use as a starting point):
+Suggested body sections:
 
-- `## Reading: <reference>` — link to an audio Bible
-- `## Historical Context`
-- `## Key Themes`
-- `## Connections` — cross-references
-- `## Reflection Questions`
-- `## Prayer`
+```markdown
+## Reading: Genesis 6:1–22
 
-### Memory verse — `src/<slug>/week-NN/memory-verse.md`
+## Historical Context
+
+## Key Themes
+
+## Connections
+
+## Reflection Questions
+
+## Prayer
+```
+
+### Discussion guide — `src/{study-slug}/{section-slug}/week-NN/discussion.md`
 
 ```yaml
 ---
+layout: page
+title: "Week 1 Discussion"
+week: 1
+type: discussion            # required — drives progress tracking
+section: "Section 1: The Covenants"
+study_slug: study-01
+tags:                       # optional
+  - discussion
+  - section-1
+---
+```
+
+### Memory verse — `src/{study-slug}/{section-slug}/week-NN/memory-verse.md`
+
+```yaml
+---
+layout: memory_verse
+type: memory_verse          # required — drives layout logic and progress tracking
 week: 1
 title: "The Covenant with Noah"
 section: "Section 1: The Covenants"
-memory_verse: "Genesis 9:13"
+study_slug: study-01
+memory_verse: "Genesis 9:13"         # reference only (book chapter:verse)
 verse_text: "I have set my rainbow in the clouds, and it will be the sign of the covenant between me and the earth."
 translation: "NIV"
-connections:
+connections:                # optional; shown at the bottom of the verse page
   - "Revelation 4:3 — a rainbow around the throne"
   - "2 Peter 2:5 — Noah as a herald of righteousness"
-layout: memory_verse
 ---
+
+## Why This Verse
+
+A short paragraph explaining why this verse captures the week's central theme
+and why it is worth committing to memory.
 ```
 
-### Discussion guide — `src/<slug>/week-NN/discussion.md`
+| Field | Required | Notes |
+|-------|----------|-------|
+| `memory_verse` | yes | Book and reference, e.g. `"Genesis 9:13"` |
+| `verse_text` | yes | The verse verbatim — used for audio playback and display everywhere |
+| `translation` | yes | Version abbreviation, e.g. `ESV`, `NIV`, `NASB` |
+| `connections` | no | Cross-references shown at the bottom of the verse page |
+| `type: memory_verse` | yes | Do not change |
+| `layout: memory_verse` | yes | Do not change |
 
-```yaml
+Once the front matter is filled in, the site does the rest automatically:
+
+- The **individual memory verse page** renders the verse, audio button, connections list, and "Why This Verse" body.
+- Every **other page that week** (overview, days 1–5, discussion) shows a callout at the top and bottom with the verse and icons.
+- The **study-level memory verses table** (`/{study-slug}/memory-verses/`) adds a row for the week — no editing required.
+
+### Front matter fields at a glance
+
+| Field | Used on | Purpose |
+|-------|---------|---------|
+| `layout` | all | Template to use — `page`, `memory_verse`, or `default` |
+| `title` | all | Page title shown in `<h1>` and browser tab |
+| `study_slug` | all content pages | Namespace for localStorage and cross-page lookups |
+| `week` | week pages | Integer week number; drives nav, callouts, progress |
+| `day` | day pages | Integer 1–5; drives progress tracking |
+| `section` | week pages | Display label for the section (shown in breadcrumb) |
+| `section_number` | section index | Integer; drives section-level progress tracking |
+| `type` | discussion, memory verse | `discussion` or `memory_verse`; drives progress routing |
+| `memory_verse` | memory-verse.md | Scripture reference |
+| `verse_text` | memory-verse.md | Verbatim verse text |
+| `translation` | memory-verse.md | Bible version abbreviation |
+| `connections` | memory-verse.md | List of cross-references |
+
 ---
-week: 1
-title: "Week 1 Discussion"
-section: "Section 1: The Covenants"
-type: discussion
-tags:
-  - discussion
-  - section-1
-layout: page
----
+
+## Adding Content
+
+Create a directory under `src/` for each new section, then add week directories inside it. The required file names within each week are fixed — see [File Naming Conventions](#file-naming-conventions) and [Front Matter Reference](#front-matter-reference) above for the full details.
+
+```
+src/
+  {study-slug}/
+    index.md
+    memory-verses.erb         ← auto-generated; copy from an existing study
+    {section-slug}/
+      index.md
+      week-01/
+        overview.md
+        day-1.md … day-5.md
+        discussion.md
+        memory-verse.md       ← fill in verse_text, memory_verse, translation
 ```
 
-### Memory verses index — `src/memory-verses.md`
-
-Add a row for each week:
-
-```markdown
-| Week | Verse | Reference |
-|------|-------|-----------|
-| [1](/covenants/week-01/memory-verse/) | "I have set my rainbow in the clouds…" | Genesis 9:13 (NIV) |
-```
+After adding files, register the new section in `study_config.yml` and `week_phases.yml`. No other configuration is needed.
 
 ---
 
@@ -290,8 +384,7 @@ Once you have added your own content, remove the sample:
 2. Remove the `sample` section from `src/_data/study_config.yml`
 3. Remove the `1: sample` entry from `src/_data/week_phases.yml`
 4. Clear the sample week from `src/_data/study_titles.json`
-5. Update `src/memory-verses.md` to remove the sample row
-6. Update `src/index.md` if it references the sample section
+5. Update `src/index.md` if it references the sample section
 
 ---
 
@@ -322,7 +415,7 @@ src/
       discussion.md
       memory-verse.md
   index.md                # homepage
-  memory-verses.md        # all memory verses table
+  memory-verses.erb       # auto-generated memory verses table
   reading-plan.erb        # auto-generated reading plan
   hear-journal.erb        # H.E.A.R. journal app page
   settings.erb            # reader settings page
