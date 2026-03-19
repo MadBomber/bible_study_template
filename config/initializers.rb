@@ -19,5 +19,5 @@ Bridgetown.configure do |config|
   # Optionally host your site off a subfolder path, e.g. /my_study
   # If you set this, update publicPath in esbuild.config.js to match.
   #
-  # base_path "/my_study"
+  base_path "/bible_study_template"
 end

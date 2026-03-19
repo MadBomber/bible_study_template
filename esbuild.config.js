@@ -10,7 +10,7 @@ import build from "./config/esbuild.defaults.js"
  * @type {BuildOptions}
  */
 const esbuildOptions = {
-  publicPath: "/_bridgetown/static",
+  publicPath: "/bible_study_template/_bridgetown/static",
   plugins: [
     // add new plugins here...
   ],
